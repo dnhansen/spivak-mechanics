@@ -335,27 +335,32 @@ for all $\vec{x}, \vec{x}' \in A$. If $X$ and $Y$ are also inner product spaces,
 \end{lemma}
 
 \begin{proof}
-    Notice the following identity:
+    Notice the identities
     %
-    \begin{align*}
-        \norm{\phi(\vec{x})}_Y^2 - 2 \inner{\phi(\vec{x})}{\phi(\vec{x}')}_Y + \norm{\phi(\vec{x}')}_Y^2
-            &= \norm{\phi(\vec{x}) - \phi(\vec{x}')}_Y^2 \\
-            &= \norm{\vec{x} - \vec{x}'}_X^2 \\
-            &= \norm{\vec{x}}_X^2 - 2 \inner{\vec{x}}{\vec{x}'}_X + \norm{\vec{x}'}_X^2
-    \end{align*}
+    \begin{equation*}
+        \norm{\vec{x} - \vec{x}'}_X^2
+            = \norm{\vec{x}}_X^2 - 2 \inner{\vec{x}}{\vec{x}'}_X + \norm{\vec{x}'}_X^2
+    \end{equation*}
     %
-    implies that $\inner{\phi(\vec{x})}{\phi(\vec{x}')}_Y = \inner{\vec{x}}{\vec{x}'}_X$ as desired.
-
-    If \cref{eq:isometry-inner-product} holds, then letting $\vec{x}' = \vec{0}$ so that $\phi(\vec{x}') = \vec{0}$, this implies that $\norm{\phi(\vec{x})}_Y = \norm{\vec{x}}_X$. If conversely $\phi$ is an isometry, notice that
+    and
+    %
+    \begin{equation*}
+        \norm{\phi(\vec{x}) - \phi(\vec{x}')}_Y^2
+            = \norm{\phi(\vec{x})}_Y^2 - 2 \inner{\phi(\vec{x})}{\phi(\vec{x}')}_Y + \norm{\phi(\vec{x}')}_Y^2.
+    \end{equation*}
+    %
+    First assume that \cref{eq:isometry-inner-product} holds. If we let $\vec{x}' = \vec{0}$ so that $\phi(\vec{x}') = \vec{0}$, then $\norm{\phi(\vec{x})}_Y = \norm{\vec{x}}_X$, and we similarly have $\norm{\phi(\vec{x}')}_Y = \norm{\vec{x}'}_X$. The above identities then imply that $\phi$ is an isometry.
+    
+    If conversely $\phi$ is an isometry, notice that
     %
     \begin{equation*}
         \norm{\phi(\vec{x})}_Y
             = \norm{\phi(\vec{x}) - \phi(\vec{0})}_Y
             = \norm{\vec{x} - \vec{0}}_X
-            = \norm{\vec{x}}.
+            = \norm{\vec{x}}_X,
     \end{equation*}
     %
-    The above calculation then implies \cref{eq:isometry-inner-product}.
+    and we similarly have $\norm{\phi(\vec{x}')}_Y = \norm{\vec{x}'}_X$. The above identities then imply \cref{eq:isometry-inner-product}.
 \end{proof}
 
 \begin{proposition}
