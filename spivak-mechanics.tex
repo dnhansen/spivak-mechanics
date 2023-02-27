@@ -493,4 +493,101 @@ That is, the centre of mass has the exact same time evolution as each of the ind
 Notice that this does not mean that we consider the motion as seen from the centre of mass sytem. We simply choose an inertial system in which $\vec{C}(0) = \vec{0}$.
 
 
+\section*{König's theorems}
+
+\newcommand{\CM}{\mathrm{CM}}
+
+\begin{remarkbreak}[König's theorem for angular momenta]
+    For $i = 1, \ldots, K$ consider a particle with mass $m_i$ and position vector $\vec{c}_i$ with respect to an origin $O$ at rest in an inertial frame. Furthermore, let $\vec{p}_i$ be its momentum. If $\vec{C}$ is the centre of mass of all $n$ particles, then we let $\overline{\vec{c}} = \vec{c} - \vec{C}$ be the relative position of the $i$th particle, and let $\overline{\vec{p}} = m_i \overline{\vec{c}}_i'$. Denote by $M$ the total mass of the particles, and let $\vec{P}$ be the total momentum (equivalently $\vec{P} = M \vec{C}'$). The angular momentum of the $i$th particle with respect to the centre of mass is then
+    %
+    \begin{align*}
+        \overline{\vec{l}}_i
+            &= \overline{\vec{c}}_i \prod \overline{\vec{p}}_i
+             = (\vec{c}_i - \vec{C}) \prod (\vec{p}_i - m_i \vec{C}') \\
+            &= \vec{l}_i - m_i \vec{c}_i \prod \vec{C}' - \vec{C} \prod \vec{p}_i + m_i \vec{C} \prod \vec{C}'.
+    \end{align*}
+    %
+    Therefore, the total angular momentum with respect to the centre of mass is
+    %
+    \begin{align*}
+        \overline{\vec{L}}
+            &= \sum_{i=1}^K \overline{\vec{l}}_i
+             = \vec{L} - M \vec{C} \prod \vec{C}' - \vec{C} \prod \vec{P} + M \vec{C} \prod \vec{C}' \\
+            &= \vec{L} - \vec{C} \prod \vec{P}
+             = \vec{L} - \vec{L}_\CM,
+    \end{align*}
+    %
+    where $\vec{L}_\CM = \vec{C} \prod \vec{P}$ is the angular momentum of the centre of mass. Hence
+    %
+    \begin{equation*}
+        \vec{L} = \overline{\vec{L}} + \vec{L}_\CM,
+    \end{equation*}
+    %
+    which is \emph{König's theorem} for angular momenta.
+\end{remarkbreak}
+
+
+\begin{remarkbreak}[Decomposition of torque]
+    Next let each particle $i$ be acted upon by an external force $\vec{F}_i$, and let $\vec{F}$ be the total force on the system. If the total external torque relative to the origin $O$ is $\vec{\tau}$, then the external torque relative to the centre of mass is
+    %
+    \begin{align*}
+        \overline{\vec{\tau}}
+            &= \sum_{i=1}^K \overline{\vec{c}}_i \prod \vec{F}_i
+             = \sum_{i=1}^K (\vec{c}_i - \vec{C}) \prod \vec{F}_i \\
+            &= \sum_{i=1}^K \vec{\tau}_i - \vec{C} \prod \vec{F}
+             = \vec{\tau} - \vec{\tau}_\CM,
+    \end{align*}
+    %
+    where $\vec{\tau}_\CM = \vec{C} \prod \vec{F}$ is the torque on the centre of mass. That is,
+    %
+    \begin{equation*}
+        \vec{\tau}
+            = \overline{\vec{\tau}} + \vec{\tau}_\CM.
+    \end{equation*}
+    %
+    Now notice that 
+    %
+    \begin{equation*}
+        \vec{L}_\CM'
+            = (\vec{C}' \prod \vec{P}) + (\vec{C} \prod \vec{P}')
+            = \vec{C} \prod \vec{F}
+            = \vec{\tau}_\CM,
+    \end{equation*}
+    %
+    since $\vec{C}'$ and $\vec{P} = M\vec{C}'$ are parallel. König's theorem thus implies that
+    %
+    \begin{equation*}
+        \overline{\vec{L}}'
+            = \vec{L}' - \vec{L}_\CM'
+            = \vec{\tau} - \vec{\tau}_\CM
+            = \overline{\vec{\tau}}.
+    \end{equation*}
+    %
+    That is, relative to the centre of mass, the external torque is the time derivative of the angular momentum, even if the centre of mass frame is not inertial.
+\end{remarkbreak}
+
+
+\begin{remarkbreak}[König's theorem for kinetic energy]
+    Notice that
+    %
+    \begin{align*}
+        T
+            &= \frac{1}{2} \sum_{i=1}^K m_i \norm{\vec{v}_i}^2
+             = \frac{1}{2} \sum_{i=1}^K m_i \norm{\overline{\vec{v}}_i + \vec{C}'}^2 \\
+            &= \frac{1}{2} \sum_{i=1}^K m_i \norm{\overline{\vec{v}}_i}^2
+              + \frac{1}{2} \sum_{i=1}^K m_i \norm{\vec{C}'}^2
+              + \vec{C}' \cdot \sum_{i=1}^K m_i \overline{\vec{v}}_i.
+    \end{align*}
+    %
+    But the last term vanishes since $\sum_{i=1}^K m_i \overline{\vec{v}}_i$ is the time derivative of $\sum_{i=1}^K m_i \overline{\vec{c}}_i$, which is zero. Hence
+    %
+    \begin{equation*}
+        T
+            = \overline{T} + T_\CM,
+    \end{equation*}
+    %
+    which is \emph{König's theorem} for kinetic energy.
+\end{remarkbreak}
+
+
 \end{document}
