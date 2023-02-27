@@ -1,0 +1,491 @@
+% Document setup
+\documentclass[article, a4paper, 11pt, oneside]{memoir}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+
+% Document info
+\newcommand\doctitle{Spivak, \emph{Physics for Mathematicians: Mechanics I}}
+\newcommand\docauthor{Danny Nygård Hansen}
+
+% Formatting and layout
+\usepackage[autostyle]{csquotes}
+\usepackage[final]{microtype}
+\usepackage{xcolor}
+\frenchspacing
+\usepackage{latex-sty/articlepagestyle}
+\usepackage{latex-sty/articlesectionstyle}
+
+% Fonts
+\usepackage{amssymb}
+\usepackage[largesmallcaps,partialup]{kpfonts}
+\DeclareSymbolFontAlphabet{\mathrm}{operators} % https://tex.stackexchange.com/questions/40874/kpfonts-siunitx-and-math-alphabets
+\linespread{1.06}
+% \let\mathfrak\undefined
+% \usepackage{eufrak}
+\DeclareMathAlphabet\mathfrak{U}{euf}{m}{n}
+\SetMathAlphabet\mathfrak{bold}{U}{euf}{b}{n}
+% https://tex.stackexchange.com/questions/13815/kpfonts-with-eufrak
+\usepackage{inconsolata}
+
+% Hyperlinks
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{4f4fa3}
+\hypersetup{%
+	pdftitle=\doctitle,
+	pdfauthor=\docauthor,
+	colorlinks,
+	linkcolor=linkcolor,
+	citecolor=linkcolor,
+	urlcolor=linkcolor,
+	bookmarksnumbered=true
+}
+
+% Equation numbering
+\numberwithin{equation}{chapter}
+
+% Footnotes
+\footmarkstyle{\textsuperscript{#1}\hspace{0.25em}}
+
+% Mathematics
+\usepackage{latex-sty/basicmathcommands}
+\usepackage{latex-sty/framedtheorems}
+
+% Lists
+\usepackage{enumitem}
+\setenumerate[0]{label=\normalfont(\arabic*)}
+
+% Bibliography
+\usepackage[backend=biber, style=authoryear, maxcitenames=2, useprefix]{biblatex}
+\addbibresource{references.bib}
+
+% Title
+\title{\doctitle}
+\author{\docauthor}
+
+\newcommand{\setF}{\mathbb{F}}
+\newcommand{\ev}{\mathrm{ev}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\borel}{\mathcal{B}}
+\newcommand{\measurable}{\mathcal{M}}
+\newcommand{\wto}{\Rightarrow}
+\DeclarePairedDelimiter{\net}{\langle}{\rangle}
+\newcommand{\strucS}{\mathfrak{S}}
+\DeclarePairedDelimiter{\gen}{\langle}{\rangle} % Generating set
+\newcommand{\frakL}{\mathfrak{L}}
+
+
+% Physics commands
+
+\DeclarePairedDelimiter{\ket}{\lvert}{\rangle}
+% \renewcommand{\vec}{\mathbf}
+\newcommand{\grad}{\nabla}
+
+\usepackage{adforn}
+\newcommand\fleuronbreak{\fancybreak{\textcolor{linkcolor}{\adfhangingflatleafleft}}}
+
+
+\begin{document}
+
+\maketitle
+
+
+% \addtocounter{chapter}{2}
+% \chapter{Momentum and Angular Momentum}
+
+% \addtocounter{section}{2}
+% \section{The Centre of Mass}
+
+% \begin{remarkbreak}[The centre of mass and convexity]
+%     Consider collections of particles at positions $\vec{r}_{11}, \ldots, \vec{r}_{1k}$ and $\vec{r}_{21}, \ldots, \vec{r}_{2l}$, with masses $m_{11}, \ldots, m_{1k}$ and $m_{21}, \ldots, m_{2l}$, respectively. Let $M_1 = \sum_{i=1}^k m_{1i}$ and $M_2 = \sum_{j=1}^l m_{2j}$ be the total masses of the two collections of particles, and let
+%     %
+%     \begin{equation*}
+%         \vec{R}_1
+%             = \frac{1}{M_1} \sum_{i=1}^k m_{1i} \vec{r}_{1i}
+%         \quad \text{and} \quad
+%         \vec{R}_2
+%             = \frac{1}{M_2} \sum_{j=1}^l m_{2j} \vec{r}_{2j}
+%     \end{equation*}
+%     %
+%     be their centres of mass. The centre of mass of the whole system is then
+%     %
+%     \begin{align*}
+%         \vec{R}
+%             &= \frac{1}{M_1 + M_2} \biggl( \sum_{i=1}^k m_{1i} \vec{r}_{1i} + \sum_{j=1}^l m_{2j} \vec{r}_{2j} \biggr) \\
+%             &= \frac{1}{M_1 + M_2} \biggl( \frac{M_1}{M_1} \sum_{i=1}^k m_{1i} \vec{r}_{1i} + \frac{M_2}{M_2} \sum_{j=1}^l m_{2j} \vec{r}_{2j} \biggr) \\
+%             &= \frac{M_1 \vec{R}_1 + M_2 \vec{R}_2}{M_1 + M_2}.
+%     \end{align*}
+%     %
+%     This obviously extends to any finite number of collections of particles.
+
+%     In particular, it follows that the centre of mass of a finite collection of particles lies in the convex hull of their position vectors. For the above shows that $\vec{R}$ is a convex combination of $\vec{R}_1$ and $\vec{R}_2$, so this follows by induction on the number of particles. In fact, this holds for any weighted average (with non-negative weights) of points in any dimension.
+% \end{remarkbreak}
+
+
+% \section{Angular Momentum for a Single Particle}
+
+% \begin{remarkbreak}[Angular momentum in noninertial frames]
+%     Choose an origin $O$ that is not necessarily at rest in any inertial frame, and consider a particle with mass $m$ and position vector $\vec{r}$ relative to $O$. The angular momentum of the particle relative to $O$ is then, by definition, $\vec{l} = \vec{r} \prod \vec{p}$. Its time derivative is
+%     %
+%     \begin{equation*}
+%         \dot{\vec{l}}
+%             = \dot{\vec{r}} \prod \vec{p} + \vec{r} \prod \dot{\vec{p}}
+%             = \vec{r} \prod \dot{\vec{p}}.
+%     \end{equation*}
+%     %
+%     If $O$ is at rest in an inertial frame, then $\dot{\vec{p}}$ equals the total force $\vec{F}$ on the particle, so the above equals the torque $\vec{\Gamma}$. However, if we include in $\vec{F}$ any inertial forces resulting from measuring $\vec{r}$ in a noninertial frame and define the torque from this force, then the above still equals the torque.
+% \end{remarkbreak}
+
+
+% \section{Angular Momentum for Several Particles}
+
+% \newcommand{\CM}{\mathrm{CM}}
+
+% \begin{remarkbreak}[König's theorem for angular momenta]
+%     For $i = 1, \ldots, n$ consider a particle with mass $m_i$ and position vector $\vec{r}_i$ with respect to an origin $O$ at rest in an inertial frame. Furthermore, let $\vec{p}_i$ be its momentum. If $\vec{R}$ is the centre of mass of all $n$ particles, then we let $\vec{r}_i' = \vec{r} - \vec{R}$ be the relative position of the $i$th particle, and let $\vec{p}_i' = m_i \dot{\vec{r}}_i'$. Denote by $M$ the total mass of the particles, and let $\vec{P}$ be the total momentum (equivalently $\vec{P} = M \dot{\vec{R}}$). The angular momentum of the $i$th particle with respect to the centre of mass is then
+%     %
+%     \begin{align*}
+%         \vec{l}_i'
+%             &= \vec{r}_i' \prod \vec{p}_i'
+%              = (\vec{r}_i - \vec{R}) \prod (\vec{p}_i - m_i \dot{\vec{R}}) \\
+%             &= \vec{l}_i - m_i \vec{r}_i \prod \dot{\vec{R}} - \vec{R} \prod \vec{p}_i + m_i \vec{R} \prod \dot{\vec{R}}.
+%     \end{align*}
+%     %
+%     Therefore, the total angular momentum with respect to the centre of mass is
+%     %
+%     \begin{align*}
+%         \vec{L}'
+%             &= \sum_{i=1}^n \vec{l}_i'
+%              = \vec{L} - M \vec{R} \prod \dot{\vec{R}} - \vec{R} \prod \vec{P} + M \vec{R} \prod \dot{\vec{R}} \\
+%             &= \vec{L} - \vec{R} \prod \vec{P}
+%              = \vec{L} - \vec{L}_\CM,
+%     \end{align*}
+%     %
+%     where $\vec{L}_\CM = \vec{R} \prod \vec{P}$ is the angular momentum of the centre of mass. Hence
+%     %
+%     \begin{equation*}
+%         \vec{L} = \vec{L}' + \vec{L}_\CM,
+%     \end{equation*}
+%     %
+%     which is \emph{König's theorem} for angular momenta.
+% \end{remarkbreak}
+
+
+% \begin{remarkbreak}[Decomposition of torque]
+%     Next let each particle $i$ be acted upon by an external force $\vec{F}_i$, and let $\vec{F}$ be the total force on the system. If the total external torque relative to the origin $O$ is $\vec{\Gamma}$, then the external torque relative to the centre of mass is
+%     %
+%     \begin{align*}
+%         \vec{\Gamma}'
+%             &= \sum_{i=1}^n \vec{r}_i' \prod \vec{F}_i
+%              = \sum_{i=1}^n (\vec{r}_i - \vec{R}) \prod \vec{F}_i \\
+%             &= \sum_{i=1}^n \vec{\Gamma}_i - \vec{R} \prod \vec{F}
+%              = \vec{\Gamma} - \vec{\Gamma}_\CM,
+%     \end{align*}
+%     %
+%     where $\vec{\Gamma}_\CM = \vec{R} \prod \vec{F}$ is the torque on the centre of mass. That is,
+%     %
+%     \begin{equation*}
+%         \vec{\Gamma}
+%             = \vec{\Gamma}' + \vec{\Gamma}_\CM.
+%     \end{equation*}
+%     %
+%     Now notice that 
+%     %
+%     \begin{equation*}
+%         \dot{\vec{L}}_\CM
+%             = (\dot{\vec{R}} \prod \vec{P}) + (\vec{R} \prod \dot{\vec{P}})
+%             = \vec{R} \prod \vec{F}
+%             = \vec{\Gamma}_\CM,
+%     \end{equation*}
+%     %
+%     since $\dot{\vec{R}}$ and $\vec{P} = M\dot{\vec{R}}$ are parallel. König's theorem thus implies that
+%     %
+%     \begin{equation*}
+%         \dot{\vec{L}}'
+%             = \dot{\vec{L}} - \dot{\vec{L}}_\CM
+%             = \vec{\Gamma} - \vec{\Gamma}_\CM
+%             = \vec{\Gamma}'.
+%     \end{equation*}
+%     %
+%     That is, relative to the centre of mass, the external torque is the time derivative of the angular momentum, even if the centre of mass frame is not inertial.
+% \end{remarkbreak}
+
+
+% \chapter{Energy}
+
+% \section{Kinetic Energy and Work}
+
+% \begin{remarkbreak}[König's theorem for kinetic energy]
+%     Notice that
+%     %
+%     \begin{align*}
+%         T
+%             &= \frac{1}{2} \sum_{i=1}^n m_i v_i^2
+%              = \frac{1}{2} \sum_{i=1}^n m_i \norm{\vec{v}_i' + \dot{\vec{R}}}^2 \\
+%             &= \frac{1}{2} \sum_{i=1}^n m_i (v_i')^2
+%               + \frac{1}{2} \sum_{i=1}^n m_i \dot{R}^2
+%               + \dot{\vec{R}} \cdot \sum_{i=1}^n m_i \vec{v}_i'.
+%     \end{align*}
+%     %
+%     But the last term vanishes since $\sum_{i=1}^n m_i \vec{v}_i'$ is the time derivative of $\sum_{i=1}^n m_i \vec{r}_i'$, which is zero. Hence
+%     %
+%     \begin{equation*}
+%         T
+%             = T' + T_\CM,
+%     \end{equation*}
+%     %
+%     which is \emph{König's theorem} for kinetic energy.
+% \end{remarkbreak}
+
+
+% \addtocounter{section}{7}
+% \section{Energy of Interaction of Two Particles}
+
+% Consider two particles numbered 1 and 2, and let particle $j$ act on particle $i \neq j$ via a force $\vec{F}_{ij}$. We assume that the force depends only on the position of the two particles, and perhaps time. Focusing on $\vec{F}_{12}$ we thus have e.g.\footnote{We use the physicist's notation to describe the domain of functions; the codomain is either $\reals$ or $\reals^3$, and we distinguish these by denoting vector-valued functions with boldface letters, similar to other vector-valued quantities. Thus the notation $\vec{F}_{12} = \vec{F}_{12}(\vec{r}_1, \vec{r}_2, t)$ means that $\vec{F}_{12}$ is a function $\Omega \to \reals^3$, where $\Omega \subseteq \reals^3 \prod \reals^3 \prod \reals$ is the set of permitted values of $(\vec{r}_1, \vec{r}_2, t)$.} $\vec{F}_{12} = \vec{F}_{12}(\vec{r}_1, \vec{r}_2, t)$. Assuming that the two particles are isolated, we have
+% %
+% \begin{equation*}
+%     \vec{F}_{12}(\vec{r}_1 + \vec{h}, \vec{r}_2 + \vec{h}, t)
+%     = \vec{F}_{12}(\vec{r}_1, \vec{r}_2, t)
+% \end{equation*}
+% %
+% for all vectors $\vec{h}$, i.e., the force is translation invariant.
+
+% Now assume that $\vec{r}_2 = \vec{0}$ at some time\footnote{As far as I can tell, the following arguments do not require that we measure the positions of the particles in an inertial frame, so we may set $\vec{r}_2 = \vec{0}$ at all $t$. In this case we may let the force and the potential be functions of $t$ instead of only being parametrised by $t$.} $t$, which we can always accomplish by changing coordinates. Further assume that the force $\vec{r}_1 \mapsto \vec{F}_{12}(\vec{r}_1, \vec{0}, t)$ is derived from a potential $U_t = U_t(\vec{r}_1)$, depending on $t$. That is, we require that the line integral of the above force between any two points is independent of path, when we keep $t$ fixed. Next, no longer fix particle 2 at the origin. Since the force is translation invariant, it follows that\footnote{By $\grad U_t(\vec{r}_1 - \vec{r}_2)$ below we mean, seemingly contrary to Taylor, the value of the function $\grad U_t$ at the point $\vec{r}_1 - \vec{r}_2$.}
+% %
+% \begin{equation*}
+%     \vec{F}_{12}(\vec{r}_1, \vec{r}_2, t)
+%         = \vec{F}_{12}(\vec{r}_1 - \vec{r}_2, \vec{0}, t)
+%         = -\grad U_t(\vec{r}_1 - \vec{r}_2).
+% \end{equation*}
+% %
+% Next define a new potential $U_{12} = U_{12}(\vec{r}_1, \vec{r}_{2}, t) = U_t(\vec{r}_1 - \vec{r}_2)$. Denoting by $\grad_1$ the gradient operator with respect to the first three arguments, i.e. the three coordinates of $\vec{r}_1$, we thus find that
+% %
+% \begin{equation*}
+%     \vec{F}_{12}(\vec{r}_1, \vec{r}_2, t)
+%         = -\grad_1 U_{12}(\vec{r}_1, \vec{r}_2, t).
+% \end{equation*}
+% %
+% It now follows that
+% %
+% \begin{equation*}
+%     \vec{F}_{21}(\vec{r}_1, \vec{r}_2, t)
+%         = -\vec{F}_{12}(\vec{r}_1, \vec{r}_2, t)
+%         = \grad_1 U_{12}(\vec{r}_1, \vec{r}_2, t)
+%         = -\grad_2 U_{12}(\vec{r}_1, \vec{r}_2, t),
+% \end{equation*}
+% %
+% where the operator $\grad_2$ is defined analogously to $\grad_1$. Hence we indeed have the identities $\vec{F}_{12} = -\grad_1 U_{12}$ and $\vec{F}_{21} = -\grad_2 U_{12}$, so both forces are derived from a single potential energy function.\footnote{Compare Taylor's equation (4.83):
+% %
+% \begin{align*}
+%     \text{(Force on particle 1)} &= -\grad_1 U \\
+%     \text{(Force on particle 2)} &= -\grad_2 U
+% \end{align*}
+% %
+% This is simply wrong as stated, as Taylor's choice of $U$ requires him to apply e.g. $-\grad_1$ to the function $(\vec{r}_1, \vec{r}_2) \mapsto U(\vec{r}_1 - \vec{r}_2)$, and not to $U$ itself.}
+
+\newcommand{\keyword}[1]{\textit{\textbf{#1}}}
+
+\addtocounter{chapter}{4}
+\chapter{Rigid Bodies}
+
+\section*{Isometries}
+
+If $(S,\rho)$ and $(T,\delta)$ are metric spaces, then a map $f \colon S \to T$ is an \keyword{isometry} if
+%
+\begin{equation*}
+    \delta \bigl( f(x), f(y) \bigr)
+        = \rho(x,y)
+\end{equation*}
+%
+for all $x,y \in S$.
+
+Let $X$ and $Y$ be normed vector spaces, and let $A \subseteq X$ be a subset. Since e.g. the norm on $X$ induces a metric $\rho_X$ given by $\rho_X(\vec{x},\vec{x'}) = \norm{\vec{x}-\vec{x}'}_X$, a (not necessarily linear) map $\phi \colon A \to Y$ is an isometry if
+%
+\begin{equation*}
+    \norm{\phi(\vec{x}) - \phi(\vec{x}')}_Y
+        = \norm{\vec{x} - \vec{x}'}_X
+\end{equation*}
+%
+for all $\vec{x}, \vec{x}' \in A$. If $X$ and $Y$ are also inner product spaces, then we have the following:
+
+\begin{lemma}
+    \label{lem:isometry-preserves-inner-product}
+    Let $X,Y$ be inner product spaces, and let $A \subseteq X$ be a subset containing $\vec{0}$. Let $\phi \colon A \to Y$ be a map such that $\phi(\vec{0}) = \vec{0}$. Then $\phi$ is an isometry if and only if
+    %
+    \begin{equation}
+        \label{eq:isometry-inner-product}
+        \inner{\phi(\vec{x})}{\phi(\vec{x}')}_Y
+            = \inner{\vec{x}}{\vec{x}'}_X
+    \end{equation}
+    %
+    for all $\vec{x}, \vec{x}' \in A$.
+\end{lemma}
+
+\begin{proof}
+    Notice the following identity:
+    %
+    \begin{align*}
+        \norm{\phi(\vec{x})}_Y^2 - 2 \inner{\phi(\vec{x})}{\phi(\vec{x}')}_Y + \norm{\phi(\vec{x}')}_Y^2
+            &= \norm{\phi(\vec{x}) - \phi(\vec{x}')}_Y^2 \\
+            &= \norm{\vec{x} - \vec{x}'}_X^2 \\
+            &= \norm{\vec{x}}_X^2 - 2 \inner{\vec{x}}{\vec{x}'}_X + \norm{\vec{x}'}_X^2
+    \end{align*}
+    %
+    implies that $\inner{\phi(\vec{x})}{\phi(\vec{x}')}_Y = \inner{\vec{x}}{\vec{x}'}_X$ as desired.
+
+    If \cref{eq:isometry-inner-product} holds, then letting $\vec{x}' = \vec{0}$ so that $\phi(\vec{x}') = \vec{0}$, this implies that $\norm{\phi(\vec{x})}_Y = \norm{\vec{x}}_X$. If conversely $\phi$ is an isometry, notice that
+    %
+    \begin{equation*}
+        \norm{\phi(\vec{x})}_Y
+            = \norm{\phi(\vec{x}) - \phi(\vec{0})}_Y
+            = \norm{\vec{x} - \vec{0}}_X
+            = \norm{\vec{x}}.
+    \end{equation*}
+    %
+    The above calculation then implies \cref{eq:isometry-inner-product}.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:isometry-characterisation-Euclidean-space}
+    Every isometry $\phi \colon \reals^d \to \reals^d$ is on the form
+    %
+    \begin{equation*}
+        \phi(\vec{x})
+            = A \vec{x} + \vec{b}, \quad \vec{x} \in \reals^d,
+    \end{equation*}
+    %
+    for a unique $d \prod d$ matrix $A$ and vector $\vec{b} \in \reals^d$. Furthermore, $A$ is orthogonal.
+\end{proposition}
+%
+In particular, any isometry that preserves the origin is linear.
+
+\begin{proof}
+    We first show that $\phi(\vec{x}) = \phi_0(\vec{x}) + \vec{b}$ for some $\vec{b} \in \reals^d$, where $\phi_0 \colon \reals^d \to \reals^d$ is an isometry fixing the origin. Simply let $\vec{b} = \phi(\vec{0})$ and $\phi_0(\vec{x}) = \phi(\vec{x}) - \vec{b}$. Then
+    %
+    \begin{equation*}
+        \phi_0(\vec{0})
+            = \phi(\vec{0}) - \vec{b}
+            = \vec{b} - \vec{b}
+            = \vec{0},
+    \end{equation*}
+    %
+    and for $\vec{x}, \vec{y} \in \reals^d$ we have
+    %
+    \begin{equation*}
+        \norm{ \phi_0(\vec{x}) - \phi_0(\vec{y}) }
+            = \norm{ \phi(\vec{x}) - \phi(\vec{y}) }
+            = \norm{\vec{x} - \vec{y}},
+    \end{equation*}
+    %
+    so $\phi_0$ is an isometry.
+
+    Next we show that $\phi_0$ is linear; since it is an isometry, this will imply the existence of an orthogonal matrix $A$ as above. For $\vec{x}, \vec{y}, \vec{z} \in \reals^d$ we have by \cref{lem:isometry-preserves-inner-product}
+    %
+    \begin{align*}
+        \inner{ \phi_0(\vec{x} + \vec{y}) }{ \phi_0(\vec{z}) }
+            &= \inner{ \vec{x} + \vec{y} }{ \vec{z} } \\
+            &= \inner{ \vec{x} }{ \vec{z} } + \inner{ \vec{y} }{ \vec{z} } \\
+            &= \inner{ \phi_0(\vec{x}) }{ \phi_0(\vec{z}) } + \inner{ \phi_0(\vec{y}) }{ \phi_0(\vec{z}) } \\
+            &= \inner{ \phi_0(\vec{x}) + \phi_0(\vec{y}) }{ \phi_0(\vec{z}) }.
+    \end{align*}
+    %
+    Since $\phi_0$ preserves orthogonality, it maps an orthogonal basis into an orthogonal set. Since $\phi_0$ is also injective (since it is an isometry), this set is in fact a basis. Replacing $\vec{z}$ by the elements in such a basis, it follows that $\inner{ \phi_0(\vec{x} + \vec{y}) }{ \vec{w} } = \inner{ \phi_0(\vec{x}) + \phi_0(\vec{y}) }{ \vec{w} }$ for all $\vec{w} \in \reals^d$. Hence $\phi_0(\vec{x} + \vec{y}) = \phi_0(\vec{x}) + \phi_0(\vec{y})$. We similarly find that, for $\alpha \in \reals$,
+    %
+    \begin{align*}
+        \inner{ \phi_0(\alpha \vec{x}) }{ \phi_0(\vec{z}) }
+            &= \inner{ \alpha \vec{x} }{ \vec{z} } \\
+            &= \alpha \inner{ \vec{x} }{ \vec{z} } \\
+            &= \alpha \inner{ \phi_0(\vec{x}) }{ \phi_0(\vec{z}) } \\
+            &= \inner{ \alpha \phi_0(\vec{x}) }{ \phi_0(\vec{z}) },
+    \end{align*}
+    %
+    implying that $\phi_0(\alpha \vec{x}) = \alpha \phi_0(\vec{x})$ Thus $\phi_0$ is linear.
+
+    To show uniqueness, assume that $A \vec{x} + \vec{b} = \phi(\vec{x}) = A' \vec{x} + \vec{b}'$ for all $\vec{x} \in \reals^d$. Then $\vec{b} = \phi(\vec{0}) = \vec{b}'$, so $A \vec{x} = A' \vec{x}$. Since this holds for all $\vec{x}$, it follows that $A = A'$ as desired.
+\end{proof}
+
+\fleuronbreak
+
+Consider points $\vec{b}_1, \ldots, \vec{b}_K \in \reals^3$ and let $\vec{b} = (\vec{b}_1, \ldots, \vec{b}_K)$. Let further $\vec{c} = (\vec{c}_1, \ldots, \vec{c}_K)$ be a rigid motion of $\vec{b}$. That is, there is a one-parameter family of isometries $\phi_t \colon \{ \vec{b}_1, \ldots, \vec{b}_K \} \to \reals^3$ such that $\phi_t(\vec{b}_i) = \vec{c}_i(t)$. However, to apply \cref{prop:isometry-characterisation-Euclidean-space} to $\phi_t$ it must be defined on $\reals^3$. A natural question is then whether it is possible to extend an isometry from a subset of $\reals^3$ to all $\reals^3$. The answer is affirmative, as we shall see below.
+
+Another natural question is whether such an extension is unique. If the points $\vec{b}_1, \ldots, \vec{b}_K$ do not lie in a plane, then by renumbering we may assume that $\vec{b}_2 - \vec{b}_1$, $\vec{b}_3 - \vec{b}_1$, and $\vec{b}_4 - \vec{b}_1$ are linearly independent and hence span $\reals^3$. The proof below will show that this implies that an extension of $\phi_t$ is unique.
+
+\newcommand{\SO}[1]{\mathrm{SO}(#1)}
+
+\begin{lemma}
+    Let $A \subseteq \reals^d$ and let $\phi \colon A \to \reals^d$ be an isometry. Then $\phi$ extends to an isometry $\tilde\phi \colon \reals^d \to \reals^d$.
+
+    Furthermore, we have the following uniqueness results:
+    %
+    \begin{enumlem}
+        \item If $A$ contains $d+1$ affinely independent elements, then $\phi$ has a unique isometric extension to $\reals^d$.
+
+        \item If $A$ contains $d$ affinely independent elements, then $\phi$ has a unique isometric extension to $\reals^d$ that is also orientation preserving.\footnotemark
+    \end{enumlem}
+\end{lemma}
+\footnotetext{By this we mean that if $\tilde{\phi}(\vec{x}) = A\vec{x} + \vec{b}$ in accordance with \cref{prop:isometry-characterisation-Euclidean-space}, then $A \in \SO{d}$.}
+
+\newcommand{\Span}{\operatorname{span}}
+
+\begin{proof}
+    By translation we may assume that $\vec{0} \in A$ (if $A$ is empty then the claim is obvious) and that $\phi(\vec{0}) = \vec{0}$. First extend $\phi$ by linearity to $\Span A$. This is well-defined, since if $\vec{x}_1, \ldots, \vec{x}_n \in A$ and $\alpha_1, \ldots, \alpha_n \in \reals$, then by \cref{lem:isometry-preserves-inner-product} we have
+    %
+    \begin{equation*}
+        \norm[\bigg]{ \sum_{i=1}^n \alpha_i \phi(\vec{x}_i) }^2
+            = \sum_{i,j=1}^n \alpha_i \alpha_j \inner{\phi(\vec{x}_i)}{\phi(\vec{x}_j)}
+            = \sum_{i,j=1}^n \alpha_i \alpha_j \inner{\vec{x}_i}{\vec{x}_j}
+            = \norm[\bigg]{ \sum_{i=1}^n \alpha_i \vec{x}_i }^2.
+    \end{equation*}
+    %
+    This also shows that $\phi$ extends to an isometry on $\Span A$, and in particular $\phi$ is linear by \cref{prop:isometry-characterisation-Euclidean-space}.
+
+    Since $\phi$ is linear it maps $\Span A$ to a subspace $\phi(\Span A)$ of $\reals^d$ with the same dimension. Let $U$ and $V$ be the orthogonal complements of $\Span A$ and $\phi(\Span A)$ respectively, and let $\psi \colon U \to V$ be an isometry. Letting $\tilde{\phi} = \phi \oplus \psi$, it follows easily by Pythagoras' theorem that $\tilde{\phi}$ is also an isometry as desired.
+
+    For the first uniqueness claim, notice that if $A$ contains a collection of $d+1$ affinely independent elements and $\vec{a}$ is one element in such a collection, then $A - \vec{a}$ contains $d$ linearly independent vectors. Hence its span, which is contained in $\Span A$, is $d$-dimensional.
+
+    To prove the second uniqueness claim, notice that an argument similar to the above shows that $\Span A$ has dimension at least $d-1$. Then notice that if $\dim U = 1$, then there are exactly two isometries $U \to V$, only one of which makes $\tilde{\phi}$ orientation preserving.
+\end{proof}
+
+
+\section*{Motion relative to the centre of mass}
+
+In the section \textquote{The inertial tensor}, Spivak considers a rigid motion $\vec{c} = (\vec{c}_1, \ldots, \vec{c}_K)$ of a collection of points $\vec{b}_1, \ldots, \vec{b}_K$. These are given by $\vec{c}_i(t) = B(t) \vec{b}_i + \vec{w}(t)$ for some $B \colon \reals \to \SO{3}$ and $\vec{w} \colon \reals \to \reals^3$.
+
+Spivak then claims that we may choose $\vec{w}$ to be the centre of mass $\vec{C}$ given by
+%
+\begin{equation*}
+    \vec{C}
+        = \frac{1}{M} \sum_{i=1}^K m_i \vec{c}_i,
+        \quad \text{where} \quad
+        M = \sum_{i=1}^K m_i.
+\end{equation*}
+%
+Given the uniqueness part of \cref{prop:isometry-characterisation-Euclidean-space}, it is not immediately clear that this is possible, even if it is intuitively reasonable. Inserting the rigid motion in the expression for $\vec{C}$, we get
+%
+\begin{align*}
+    \vec{C}(t)
+        &= \frac{1}{M} \sum_{i=1}^K m_i \bigl( B(t) \vec{b}_i + \vec{w}(t) \bigr)
+         = \frac{1}{M} \sum_{i=1}^K m_i B(t) \vec{b}_i + \vec{w}(t) \\
+        &= B(t) \frac{ \sum_{i=1}^K m_i \vec{c}_i(0) }{M} + \vec{w}(t)
+         = B(t) \vec{C}(0) + \vec{w}(t).
+\end{align*}
+%
+That is, the centre of mass has the exact same time evolution as each of the individual particles. If we choose our coordinate system such that $\vec{C}(0) = \vec{0}$, we thus get $\vec{C}(t) = \vec{w}(t)$.
+
+Notice that this does not mean that we consider the motion as seen from the centre of mass sytem. We simply choose an inertial system in which $\vec{C}(0) = \vec{0}$.
+
+
+\end{document}
